@@ -1,0 +1,21 @@
+#  Start all services
+docker-compose up --build
+
+#  Kafka Console Producer
+docker exec -it kafka-to-redis-docker_kafka_1 kafka-console-producer --topic my-topic --bootstrap-server kafka:9092
+
+# Redis CLI
+docker exec -it kafka-to-redis-docker_redis_1 redis-cli
+
+#  GitHub Personal Access Token (PAT) Generator
+https://github.com/settings/tokens
+
+# Docker Temporary Fix Commands (cleanup + reset)
+docker-compose down -v --remove-orphans
+docker system prune -f
+docker-compose up --build
+
+# If it says permission denied
+sudo usermod -aG docker $USER
+newgrp docker
+

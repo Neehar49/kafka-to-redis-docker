@@ -45,7 +45,6 @@ const redisClient = createClient({
 
           const key = `imei_${uniqueId}`;
           const currentVal = await redisClient.get(key);
-
           const isIgnitionOn = (eventFlag & 1024) === 1024;
           const isIgnitionOff = (eventFlag & 4096) === 4096;
 
@@ -83,11 +82,13 @@ const redisClient = createClient({
           } else {
             console.warn(`⚠️ Unexpected event_flag: ${eventFlag}`);
           }
+
         } catch (err) {
           console.error('❌ Error processing message:', err);
         }
       }
     });
+
   } catch (err) {
     console.error('❌ Fatal error:', err);
     process.exit(1);
